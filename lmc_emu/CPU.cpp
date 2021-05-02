@@ -1,12 +1,13 @@
 #include "CPU.h"
 
-CPU::CPU(std::vector<int> memory)
+CPU::CPU(std::vector<int> memory, bool debug)
 {
 	m_memory = memory;
 	m_PC = 0;
 	m_ACC = 0;
 	m_curInstruction = 0;
 	m_shouldRun = true;
+	m_debug = debug;
 }
 
 CPU::~CPU()
@@ -28,7 +29,8 @@ bool CPU::run()
 
 void CPU::m_fetch()
 {
-	std::cout << "[INFO] Fetch instruction at PC=" << m_PC << std::endl;
+	if(m_debug)
+		std::cout << "[INFO] Fetch instruction at PC=" << m_PC << std::endl;
 	m_curInstruction = m_memory[m_PC];
 	m_PC++;
 }
@@ -36,7 +38,8 @@ void CPU::m_fetch()
 void CPU::m_decode()
 {
 	int instr = m_curInstruction;
-	std::cout << "[INFO] Decoding opcode " << instr << std::endl;
+	if(m_debug)
+		std::cout << "[INFO] Decoding opcode " << instr << std::endl;
 	int op = instr / 100;
 
 	switch (op)
@@ -45,7 +48,7 @@ void CPU::m_decode()
 		m_add(instr - 100);	//-100 to extract memory address (as instruction is 1xx where xx is mem address)
 		break;
 	case 2:
-		m_sub(instr - 200); //same here!
+		m_sub(instr - 200); 
 		break;
 	case 3:
 		m_store(instr - 300);
@@ -76,7 +79,7 @@ void CPU::m_decode()
 		m_shouldRun = false;
 	}
 
-	if (m_shouldRun)
+	if (m_shouldRun && m_debug)
 		std::cout << "Instruction executed successfully; PC=" << m_PC << " ACC=" << m_ACC << std::endl;
 }
 

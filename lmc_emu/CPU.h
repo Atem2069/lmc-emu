@@ -6,7 +6,7 @@
 class CPU
 {
 public:
-	CPU(std::vector<int> memory);
+	CPU(std::vector<int> memory, bool debug);
 	~CPU();
 
 	bool run();
@@ -31,4 +31,5 @@ private:
 	std::vector<int> m_memory;
 
 	bool m_shouldRun;
+	bool m_debug;
 };
