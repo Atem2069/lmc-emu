@@ -139,7 +139,7 @@ bool Assembler::assembleFromStringData(std::vector<std::string> m_strings, std::
 
 bool Assembler::m_resolveOpcode(std::string operation, int& opcode, bool& resolveOperand)
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < INSTR_COUNT; i++)
 	{
 		InstructionMapping curInstruction = m_instructionSet[i];
 		if (operation == curInstruction.mnemonic)

@@ -69,7 +69,12 @@ void CPU::m_decode()
 		if (instr == 901)
 			m_input();
 		else
-			m_output();
+		{
+			if (instr == 902)
+				m_output();
+			else if (instr == 922)
+				m_outputChar();
+		}
 		break;
 	case 0:
 		m_shouldRun = false;
@@ -131,4 +136,9 @@ void CPU::m_input()
 void CPU::m_output()
 {
 	std::cout << "[OUT] " << m_ACC << std::endl;
+}
+
+void CPU::m_outputChar()
+{
+	std::cout << "[OUT] " << (char)m_ACC << std::endl;
 }

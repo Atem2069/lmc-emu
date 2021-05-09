@@ -23,6 +23,7 @@ private:
 	void m_jmpPos(int addr);
 	void m_input();
 	void m_output();
+	void m_outputChar();
 	//and register stuff
 	int m_PC;
 	int m_ACC;

@@ -46,7 +46,7 @@ private:
 	bool m_resolveOpcode(std::string operation, int& opcode, bool& requiresOperand);
 	std::vector<Token> m_knownTokens;	//tokens that we collect from DAT instruction
 	std::vector<Token> m_unresolvedTokens;	//tokens we will need to resolve later
-	InstructionMapping m_instructionSet[10] = {
+	InstructionMapping m_instructionSet[11] = {
 		{"ADD",100,true},
 		{"SUB",200,true},
 		{"STA",300,true},
@@ -56,6 +56,8 @@ private:
 		{"BRP",800,true},
 		{"INP",901,false},
 		{"OUT",902,false},
+		{"OTC",922,false},
 		{"HLT",000,false}
 	};
+	const int INSTR_COUNT = 11;
 };
