@@ -139,42 +139,16 @@ bool Assembler::assembleFromStringData(std::vector<std::string> m_strings, std::
 
 bool Assembler::m_resolveOpcode(std::string operation, int& opcode, bool& resolveOperand)
 {
-	int m_tempOpcode = 0;
-	resolveOperand = true;
-	if (operation == "ADD")
-		m_tempOpcode = 100;
-	else if (operation == "SUB")
-		m_tempOpcode = 200;
-	else if (operation == "STA")
-		m_tempOpcode = 300;
-	else if (operation == "LDA")
-		m_tempOpcode = 500;
-	else if (operation == "BRA")
-		m_tempOpcode = 600;
-	else if (operation == "BRZ")
-		m_tempOpcode = 700;
-	else if (operation == "BRP")
-		m_tempOpcode = 800;
-	else if (operation == "INP")
+	for (int i = 0; i < 10; i++)
 	{
-		m_tempOpcode = 901;
-		resolveOperand = false;
+		InstructionMapping curInstruction = m_instructionSet[i];
+		if (operation == curInstruction.mnemonic)
+		{
+			opcode = curInstruction.opcode;
+			resolveOperand = curInstruction.requireOperand;
+			return true;
+		}
 	}
-	else if (operation == "OUT")
-	{
-		m_tempOpcode = 902;
-		resolveOperand = false;
-	}
-	else if (operation == "HLT")
-	{
-		m_tempOpcode = 0;
-		resolveOperand = false;
-	}
-	else
-	{
-		std::cout << "[FATAL][ASM] Invalid opcode '" << operation << "' was passed. " << std::endl;
-		return false;
-	}
-	opcode = m_tempOpcode;
-	return true;
+	std::cout << "[FATAL][ASM] Invalid opcode '" << operation << "' was passed. " << std::endl;
+	return false;
 }
