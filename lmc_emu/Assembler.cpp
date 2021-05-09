@@ -51,7 +51,13 @@ bool Assembler::assembleFromStringData(std::vector<std::string> m_strings, std::
 	{
 		int opcodeIndex = 0, operandIndex = 1;
 		std::string currentLine = m_strings[i];
-		std::vector<std::string> splitData = split(currentLine, ' ');
+		std::vector<std::string> m_tempSplitData = split(currentLine, ' ');
+		std::vector<std::string> splitData;
+		for (int i = 0; i < m_tempSplitData.size(); i++)
+		{
+			if (m_tempSplitData[i].size() > 0)
+				splitData.push_back(m_tempSplitData[i]);
+		}
 		if (splitData.size() == 3 || (splitData.size()==2 && ( splitData[1]=="INP" || splitData[1]=="OUT" || splitData[1]=="HLT" ) ))	//TERRIBLE HACK if instruction has no operand
 		{
 			Token m_newToken = {};

@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 			return -1;
 	}
 
-	CPU m_cpu(m_cpuMemory,false);
+	CPU m_cpu(m_cpuMemory,true);
 	m_cpu.run();
 	return 0;
 }
